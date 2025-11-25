@@ -42,44 +42,101 @@ export default function HomeLiveSnapshot({ locale }: HomeLiveSnapshotProps) {
               {t.home.liveSnapshot.accountOverview}
             </h3>
             <div className="mb-8 bg-white rounded-lg p-4 shadow-inner">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b-2 border-brand-cyan-200">
-                    <th className="text-left py-3 px-4 text-brand-cyan-700 font-semibold">
+              {/* Desktop/Tablet Table View */}
+              <div className="hidden md:block">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b-2 border-brand-cyan-200">
+                      <th className="text-left py-3 px-4 text-brand-cyan-700 font-semibold">
+                        {t.home.liveSnapshot.started}
+                      </th>
+                      <th className="text-left py-3 px-4 text-brand-cyan-700 font-semibold">
+                        {t.home.liveSnapshot.balance}
+                      </th>
+                      <th className="text-left py-3 px-4 text-brand-cyan-700 font-semibold">
+                        {t.home.liveSnapshot.equity}
+                      </th>
+                      <th className="text-left py-3 px-4 text-brand-cyan-700 font-semibold">
+                        {t.home.liveSnapshot.margin}
+                      </th>
+                      <th className="text-left py-3 px-4 text-brand-cyan-700 font-semibold">
+                        {t.home.liveSnapshot.usable}
+                      </th>
+                      <th className="text-left py-3 px-4 text-brand-cyan-700 font-semibold">
+                        {t.home.liveSnapshot.pnl}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-gray-100 hover:bg-gray-50">
+                      <td className="py-4 px-4">{stats.initialDeposit.toLocaleString('el-GR')} €</td>
+                      <td className="py-4 px-4 font-semibold text-brand-cyan-600">
+                        {stats.currentBalance.toLocaleString('el-GR')} €
+                      </td>
+                      <td className="py-4 px-4">{stats.equity.toLocaleString('el-GR')} €</td>
+                      <td className="py-4 px-4">{stats.margin.toLocaleString('el-GR')} €</td>
+                      <td className="py-4 px-4 text-green-600 font-semibold">
+                        {stats.usablePercent.toFixed(2)} %
+                      </td>
+                      <td className="py-4 px-4">{stats.pnl.toLocaleString('el-GR')} €</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Mobile Card View */}
+              <div className="md:hidden space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                    <div className="text-sm text-brand-cyan-700 font-semibold mb-1">
                       {t.home.liveSnapshot.started}
-                    </th>
-                    <th className="text-left py-3 px-4 text-brand-cyan-700 font-semibold">
+                    </div>
+                    <div className="text-lg font-bold text-gray-800">
+                      {stats.initialDeposit.toLocaleString('el-GR')} €
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                    <div className="text-sm text-brand-cyan-700 font-semibold mb-1">
                       {t.home.liveSnapshot.balance}
-                    </th>
-                    <th className="text-left py-3 px-4 text-brand-cyan-700 font-semibold">
-                      {t.home.liveSnapshot.equity}
-                    </th>
-                    <th className="text-left py-3 px-4 text-brand-cyan-700 font-semibold">
-                      {t.home.liveSnapshot.margin}
-                    </th>
-                    <th className="text-left py-3 px-4 text-brand-cyan-700 font-semibold">
-                      {t.home.liveSnapshot.usable}
-                    </th>
-                    <th className="text-left py-3 px-4 text-brand-cyan-700 font-semibold">
-                      {t.home.liveSnapshot.pnl}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-4 px-4">{stats.initialDeposit.toLocaleString('el-GR')} €</td>
-                    <td className="py-4 px-4 font-semibold text-brand-cyan-600">
+                    </div>
+                    <div className="text-lg font-bold text-brand-cyan-600">
                       {stats.currentBalance.toLocaleString('el-GR')} €
-                    </td>
-                    <td className="py-4 px-4">{stats.equity.toLocaleString('el-GR')} €</td>
-                    <td className="py-4 px-4">{stats.margin.toLocaleString('el-GR')} €</td>
-                    <td className="py-4 px-4 text-green-600 font-semibold">
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                    <div className="text-sm text-brand-cyan-700 font-semibold mb-1">
+                      {t.home.liveSnapshot.equity}
+                    </div>
+                    <div className="text-lg font-bold text-gray-800">
+                      {stats.equity.toLocaleString('el-GR')} €
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                    <div className="text-sm text-brand-cyan-700 font-semibold mb-1">
+                      {t.home.liveSnapshot.margin}
+                    </div>
+                    <div className="text-lg font-bold text-gray-800">
+                      {stats.margin.toLocaleString('el-GR')} €
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                    <div className="text-sm text-brand-cyan-700 font-semibold mb-1">
+                      {t.home.liveSnapshot.usable}
+                    </div>
+                    <div className="text-lg font-bold text-green-600">
                       {stats.usablePercent.toFixed(2)} %
-                    </td>
-                    <td className="py-4 px-4">{stats.pnl.toLocaleString('el-GR')} €</td>
-                  </tr>
-                </tbody>
-              </table>
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                    <div className="text-sm text-brand-cyan-700 font-semibold mb-1">
+                      {t.home.liveSnapshot.pnl}
+                    </div>
+                    <div className="text-lg font-bold text-gray-800">
+                      {stats.pnl.toLocaleString('el-GR')} €
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="mb-6">
               <h4 className="text-lg font-semibold mb-4 text-brand-cyan-600">
