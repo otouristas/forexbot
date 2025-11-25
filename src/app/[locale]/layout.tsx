@@ -5,13 +5,15 @@ export const metadata = {
   title: 'ForexBot.gr',
 }
 
-export default function LocaleLayout({
+export default async function LocaleLayout({
   children,
-  params: { locale }
+  params
 }: {
   children: React.ReactNode
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const { locale } = await params
+  
   if (locale !== 'el' && locale !== 'en') {
     notFound()
   }

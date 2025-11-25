@@ -5,8 +5,8 @@ import HomeLiveSnapshot from '@/components/sections/HomeLiveSnapshot'
 import HomeWhatIsSection from '@/components/sections/HomeWhatIsSection'
 import HomeFAQTeaser from '@/components/sections/HomeFAQTeaser'
 
-export function generateMetadata({ params }: { params: { locale: string } }): Metadata {
-  const { locale } = params
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
   const baseUrl = "https://forexbot.gr"
 
   if (locale === 'el') {
@@ -29,7 +29,8 @@ export function generateMetadata({ params }: { params: { locale: string } }): Me
   }
 }
 
-export default function HomePage({ params }: { params: { locale: string } }) {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -45,10 +46,10 @@ export default function HomePage({ params }: { params: { locale: string } }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <HomeHero locale={params.locale} />
-      <HomeVersionsGrid locale={params.locale} />
-      <HomeLiveSnapshot locale={params.locale} />
-      <HomeWhatIsSection locale={params.locale} />
+      <HomeHero locale={locale} />
+      <HomeVersionsGrid locale={locale} />
+      <HomeLiveSnapshot locale={locale} />
+      <HomeWhatIsSection locale={locale} />
       <HomeFAQTeaser />
     </div>
   )
