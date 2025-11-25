@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 export default function LegalDisclaimerModal() {
   const [isOpen, setIsOpen] = useState(false)
@@ -33,12 +34,12 @@ export default function LegalDisclaimerModal() {
           >
             Έχω ενημερωθεί και αποδέχομαι
           </button>
-          <a
+          <Link
             href="/legal/disclaimer"
-            className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700"
+            className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 inline-block text-center"
           >
             Διαβάστε περισσότερα
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,4 +1,20 @@
-export default function PrivacyCookiesPage({ params }: { params: { locale: string } }) {
+import type { Metadata } from 'next'
+import { LocalePageProps } from '@/models/locale-page-props'
+import { buildPageMetadata } from '@/lib/seo'
+import { resolveLocale } from '@/lib/locale'
+
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
+  const locale = await resolveLocale(params)
+  return buildPageMetadata({
+    locale,
+    title: 'ForexBot.gr | Privacy & Cookies',
+    description: 'Πολιτική απορρήτου ForexBot.gr για φόρμες επικοινωνίας, analytics και cookies.',
+    path: 'legal/privacy-cookies',
+  })
+}
+
+export default async function PrivacyCookiesPage({ params }: LocalePageProps) {
+  await resolveLocale(params)
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <h1 className="text-3xl font-bold mb-8">Πολιτική Απορρήτου & Cookies</h1>

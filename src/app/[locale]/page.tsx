@@ -1,42 +1,36 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import HomeHero from '@/components/sections/HomeHero'
+import HomeIntro from '@/components/sections/HomeIntro'
 import HomeVersionsGrid from '@/components/sections/HomeVersionsGrid'
 import HomeLiveSnapshot from '@/components/sections/HomeLiveSnapshot'
+import HomeBacktestVideo from '@/components/sections/HomeBacktestVideo'
 import HomeWhatIsSection from '@/components/sections/HomeWhatIsSection'
 import HomeFAQTeaser from '@/components/sections/HomeFAQTeaser'
+import { getTranslations, type Locale } from '@/lib/translations'
+import { LocalePageProps } from '@/models/locale-page-props'
+import { buildPageMetadata } from '@/lib/seo'
+import { resolveLocale } from '@/lib/locale'
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params
-  const baseUrl = "https://forexbot.gr"
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
+  const currentLocale = await resolveLocale(params)
+  const t = getTranslations(currentLocale)
 
-  if (locale === 'el') {
-    return {
-      title: 'ForexBot MT5 – Αλγοριθμική Στρατηγική Forex με Live Δεδομένα & Επαλήθευση',
-      description: 'Γνωρίστε το ForexBot, μια αυτοματοποιημένη στρατηγική Forex με backtests 2008–2023 και live παρακολούθηση μέσω Darwinex & Myfxbook. Ενημερωτικό περιεχόμενο, όχι επενδυτική συμβουλή.',
-      alternates: {
-        canonical: `${baseUrl}/el`,
-      },
-    }
-  } else {
-    // Placeholder for EN
-    return {
-      title: 'ForexBot MT5 – Algorithmic Forex Strategy with Live Data & Verification',
-      description: 'Discover ForexBot, an automated Forex strategy with backtests 2008–2023 and live monitoring via Darwinex & Myfxbook. Educational content, not investment advice.',
-      alternates: {
-        canonical: `${baseUrl}/en`,
-      },
-    }
-  }
+  return buildPageMetadata({
+    locale: currentLocale,
+    title: t.home.hero.title,
+    description: t.home.hero.description,
+  })
 }
 
-export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params
+export default async function HomePage({ params }: LocalePageProps) {
+  const currentLocale = await resolveLocale(params)
+  const t = getTranslations(currentLocale)
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "ForexBot.gr",
     "url": "https://forexbot.gr",
-    "description": "Αλγοριθμική στρατηγική Forex με live δεδομένα & επαλήθευση",
+    "description": t.home.hero.description,
     "foundingDate": "2013",
   }
 
@@ -46,11 +40,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <HomeHero locale={locale} />
-      <HomeVersionsGrid locale={locale} />
-      <HomeLiveSnapshot locale={locale} />
-      <HomeWhatIsSection locale={locale} />
-      <HomeFAQTeaser />
+      <HomeHero locale={currentLocale} />
+      <HomeIntro locale={currentLocale} />
+      <HomeVersionsGrid locale={currentLocale} />
+      <HomeLiveSnapshot locale={currentLocale} />
+      <HomeBacktestVideo locale={currentLocale} />
+      <HomeWhatIsSection locale={currentLocale} />
+      <HomeFAQTeaser locale={currentLocale} />
     </div>
   )
 }

@@ -1,6 +1,21 @@
+import type { Metadata } from 'next'
 import Accordion from '@/components/ui/Accordion'
+import { LocalePageProps } from '@/models/locale-page-props'
+import { buildPageMetadata } from '@/lib/seo'
+import { resolveLocale } from '@/lib/locale'
 
-export default function FAQsPage({ params }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
+  const locale = await resolveLocale(params)
+  return buildPageMetadata({
+    locale,
+    title: 'ForexBot.gr | Frequently Asked Questions',
+    description: 'Απαντήσεις για τη στρατηγική ForexBot, τα backtests, το ρίσκο και το επιχειρηματικό μοντέλο.',
+    path: 'faqs',
+  })
+}
+
+export default async function FAQsPage({ params }: LocalePageProps) {
+  await resolveLocale(params)
   const faqGroups = {
     strategy: [
       {

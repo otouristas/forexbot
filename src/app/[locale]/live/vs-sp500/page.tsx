@@ -1,11 +1,27 @@
-export default function VsSP500Page({ params }: { params: { locale: string } }) {
+import type { Metadata } from 'next'
+import { LocalePageProps } from '@/models/locale-page-props'
+import { buildPageMetadata } from '@/lib/seo'
+import { resolveLocale } from '@/lib/locale'
+
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
+  const locale = await resolveLocale(params)
+  return buildPageMetadata({
+    locale,
+    title: 'ForexBot.gr | ForexBot vs S&P 500',
+    description: 'Ενημερωτική σύγκριση ForexBot με τον δείκτη S&P 500 με ανάλυση ρίσκου και χρήσης.',
+    path: 'live/vs-sp500',
+  })
+}
+
+export default async function VsSP500Page({ params }: LocalePageProps) {
+  await resolveLocale(params)
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Σύγκριση ForexBot vs S&P 500 – Διαφορετικά Μέσα, Διαφορετικό Ρίσκο</h1>
 
       <div className="mb-8">
         <p className="text-lg mb-4">
-          Η σύγκριση μεταξύ ForexBot και S&P 500 είναι ενδεικτική και δεν υποδηλώνει ποιος είναι "καλύτερος".
+          Η σύγκριση μεταξύ ForexBot και S&P 500 είναι ενδεικτική και δεν υποδηλώνει ποιος είναι &quot;καλύτερος&quot;.
           Τα δύο είναι διαφορετικά επενδυτικά μέσα με διαφορετικά προφίλ ρίσκου και απόδοσης.
         </p>
       </div>

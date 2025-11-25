@@ -1,4 +1,20 @@
-export default function BacktestsPage({ params }: { params: { locale: string } }) {
+import type { Metadata } from 'next'
+import { LocalePageProps } from '@/models/locale-page-props'
+import { buildPageMetadata } from '@/lib/seo'
+import { resolveLocale } from '@/lib/locale'
+
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
+  const locale = await resolveLocale(params)
+  return buildPageMetadata({
+    locale,
+    title: 'ForexBot.gr | Backtests 2008-2023',
+    description: 'Δείτε τα ιστορικά αποτελέσματα ForexBot v13 με αναλυτικά CAGR, Max Drawdown και δείκτες 2008–2023.',
+    path: 'backtests',
+  })
+}
+
+export default async function BacktestsPage({ params }: LocalePageProps) {
+  await resolveLocale(params)
   const backtests = [
     {
       version: 'v13.10 Core500',
@@ -59,6 +75,16 @@ export default function BacktestsPage({ params }: { params: { locale: string } }
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="mb-8 text-center">
+        <a
+          href="https://forexbot.gr/assets/backtests/backtests.zip"
+          download
+          className="bg-gradient-to-r from-brand-orange-500 to-brand-orange-600 text-white px-8 py-4 rounded-lg font-semibold hover:from-brand-orange-600 hover:to-brand-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl text-lg inline-block"
+        >
+          Λήψη Backtest και Excel Reports
+        </a>
       </div>
 
       <div className="bg-yellow-100 p-4 rounded">

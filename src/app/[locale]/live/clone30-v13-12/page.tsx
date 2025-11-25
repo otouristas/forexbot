@@ -1,6 +1,22 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
+import { LocalePageProps } from '@/models/locale-page-props'
+import { buildPageMetadata } from '@/lib/seo'
+import { resolveLocale } from '@/lib/locale'
 
-export default function Clone30V1312Page({ params }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
+  const locale = await resolveLocale(params)
+  return buildPageMetadata({
+    locale,
+    title: 'ForexBot.gr | Clone30 v13.12 Backtest Profile',
+    description: 'Συντηρητικό προφίλ Clone30 v13.12 με μόχλευση 1:30, στατιστικά backtest και νομικές σημειώσεις.',
+    path: 'live/clone30-v13-12',
+  })
+}
+
+export default async function Clone30V1312Page({ params }: LocalePageProps) {
+  const locale = await resolveLocale(params)
   const stats = [
     { label: 'Backtest Period', value: '2008–2023' },
     { label: 'CAGR', value: '25%' },
@@ -32,7 +48,7 @@ export default function Clone30V1312Page({ params }: { params: { locale: string 
             ))}
           </tbody>
         </table>
-        <Link href={`/${params.locale}/backtests`} className="text-blue-600 hover:underline mt-4 inline-block">
+        <Link href={`/${locale}/backtests`} className="text-blue-600 hover:underline mt-4 inline-block">
           Δες όλα τα backtests →
         </Link>
       </div>
@@ -45,6 +61,17 @@ export default function Clone30V1312Page({ params }: { params: { locale: string 
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Εκτιμώμενη Διαθεσιμότητα Live</h2>
         <p>Η live εφαρμογή της Clone30 είναι υπό εξέλιξη και αναμένεται να είναι διαθέσιμη το επόμενο τρίμηνο.</p>
+      </div>
+
+      <div className="mb-8" style={{ marginTop: '3rem' }}>
+        <Image
+          src="https://forexbot.gr/assets/images/s&p.png"
+          alt="Σύγκριση με S&P 500"
+          width={1200}
+          height={600}
+          className="w-full h-auto rounded-xl shadow-xl"
+          unoptimized
+        />
       </div>
 
       <div className="bg-yellow-100 p-4 rounded">

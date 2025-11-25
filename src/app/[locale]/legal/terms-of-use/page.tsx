@@ -1,4 +1,20 @@
-export default function TermsOfUsePage({ params }: { params: { locale: string } }) {
+import type { Metadata } from 'next'
+import { LocalePageProps } from '@/models/locale-page-props'
+import { buildPageMetadata } from '@/lib/seo'
+import { resolveLocale } from '@/lib/locale'
+
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
+  const locale = await resolveLocale(params)
+  return buildPageMetadata({
+    locale,
+    title: 'ForexBot.gr | Terms of Use',
+    description: 'Όροι χρήσης για την πρόσβαση στο ForexBot.gr και τα εκπαιδευτικά του περιεχόμενα.',
+    path: 'legal/terms-of-use',
+  })
+}
+
+export default async function TermsOfUsePage({ params }: LocalePageProps) {
+  await resolveLocale(params)
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <h1 className="text-3xl font-bold mb-8">Όροι Χρήσης</h1>

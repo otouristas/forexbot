@@ -1,4 +1,20 @@
-export default function VersionsPage({ params }: { params: { locale: string } }) {
+import type { Metadata } from 'next'
+import { LocalePageProps } from '@/models/locale-page-props'
+import { buildPageMetadata } from '@/lib/seo'
+import { resolveLocale } from '@/lib/locale'
+
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
+  const locale = await resolveLocale(params)
+  return buildPageMetadata({
+    locale,
+    title: 'ForexBot.gr | Versions Overview',
+    description: 'Σύγκριση εκδόσεων ForexBot v13 (Core500, Clone30, Even30) με μόχλευση, drawdown και προφίλ ρίσκου.',
+    path: 'versions',
+  })
+}
+
+export default async function VersionsPage({ params }: LocalePageProps) {
+  await resolveLocale(params)
   const versions = [
     {
       version: 'v13.10',

@@ -1,34 +1,39 @@
+import Link from 'next/link'
+import { getTranslations, type Locale } from '@/lib/translations'
+
 interface HomeHeroProps {
   locale: string
 }
 
 export default function HomeHero({ locale }: HomeHeroProps) {
+  const t = getTranslations((locale as Locale) || 'el')
+
   return (
-    <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
-      <div className="container mx-auto px-4 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">
-          ForexBot MT5 – Αλγοριθμική στρατηγική Forex με live δεδομένα & επαλήθευση
+    <section className="relative bg-gradient-to-br from-brand-cyan-600 via-brand-cyan-700 to-brand-cyan-800 text-white py-24 overflow-hidden">
+      <div className="absolute inset-0 bg-[url('/assets/brandx192.png')] opacity-5 bg-repeat" />
+      <div className="container mx-auto px-4 text-center relative z-10">
+        <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+          {t.home.hero.title}
         </h1>
-        <p className="text-xl mb-8 max-w-2xl mx-auto">
-          Γνωρίστε το ForexBot, μια αυτοματοποιημένη στρατηγική Forex με backtests 2008–2023 και live παρακολούθηση μέσω Darwinex & Myfxbook.
-          Ενημερωτικό περιεχόμενο, όχι επενδυτική συμβουλή.
+        <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto leading-relaxed opacity-95">
+          {t.home.hero.description}
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
           <Link
             href={`/${locale}/live`}
-            className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
+            className="bg-brand-orange-500 hover:bg-brand-orange-600 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
           >
-            Δες τη ζωντανή απόδοση
+            {t.home.hero.ctaLive}
           </Link>
           <Link
             href={`/${locale}/strategy`}
-            className="border border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition"
+            className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-brand-cyan-700 transition-all duration-300 transform hover:scale-105"
           >
-            Δες πώς λειτουργεί
+            {t.home.hero.ctaStrategy}
           </Link>
         </div>
-        <p className="text-sm opacity-80">
-          Δεν παρέχονται επενδυτικές υπηρεσίες – ενημερωτικό περιεχόμενο.
+        <p className="text-sm opacity-80 max-w-2xl mx-auto">
+          {t.home.hero.disclaimer}
         </p>
       </div>
     </section>

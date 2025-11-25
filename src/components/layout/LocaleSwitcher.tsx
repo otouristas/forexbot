@@ -4,8 +4,9 @@ import Link from 'next/link'
 import { useParams, usePathname } from 'next/navigation'
 
 export default function LocaleSwitcher() {
-  const { locale } = useParams()
+  const params = useParams()
   const pathname = usePathname()
+  const locale = Array.isArray(params.locale) ? params.locale[0] : params.locale || 'el'
 
   const switchLocale = locale === 'el' ? 'en' : 'el'
   const newPath = pathname.replace(`/${locale}`, `/${switchLocale}`)

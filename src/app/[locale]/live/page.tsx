@@ -1,4 +1,8 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
+import { LocalePageProps } from '@/models/locale-page-props'
+import { buildPageMetadata } from '@/lib/seo'
+import { resolveLocale } from '@/lib/locale'
 
 const versions = [
   {
@@ -18,7 +22,18 @@ const versions = [
   },
 ]
 
-export default function LiveOverviewPage({ params }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
+  const locale = await resolveLocale(params)
+  return buildPageMetadata({
+    locale,
+    title: 'ForexBot.gr | Live Performance Overview',
+    description: 'Παρακολουθήστε τις live εκδόσεις ForexBot και συγκρίνετε αποτελέσματα με backtests και S&P 500.',
+    path: 'live',
+  })
+}
+
+export default async function LiveOverviewPage({ params }: LocalePageProps) {
+  const locale = await resolveLocale(params)
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Live Απόδοση ForexBot – Επισκόπηση Εκδόσεων</h1>
@@ -32,7 +47,7 @@ export default function LiveOverviewPage({ params }: { params: { locale: string 
               <p><strong>Max DD:</strong> {version.metrics.dd}</p>
               <p><strong>Μόχλευση:</strong> {version.metrics.leverage}</p>
             </div>
-            <Link href={`/${params.locale}/live/${version.href}`} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <Link href={`/${locale}/live/${version.href}`} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
               Δες λεπτομέρειες
             </Link>
           </div>
@@ -42,7 +57,7 @@ export default function LiveOverviewPage({ params }: { params: { locale: string 
       <div className="mb-8">
         <h2 className="text-2xl font-bold mb-4">LIVE vs BACKTEST: Απόδειξη Σύγκλισης</h2>
         <p>Η απόδοση live συγκλίνει με τα backtests, χωρίς curve fitting.</p>
-        <Link href={`/${params.locale}/live/compare-live-vs-backtest`} className="text-blue-600 hover:underline">
+        <Link href={`/${locale}/live/compare-live-vs-backtest`} className="text-blue-600 hover:underline">
           Δες τη σύγκριση →
         </Link>
       </div>
@@ -50,7 +65,7 @@ export default function LiveOverviewPage({ params }: { params: { locale: string 
       <div className="mb-8">
         <h2 className="text-2xl font-bold mb-4">Σύγκριση με S&P 500</h2>
         <p>Διαφορετικά μέσα, διαφορετικό ρίσκο. Η σύγκριση είναι ενδεικτική.</p>
-        <Link href={`/${params.locale}/live/vs-sp500`} className="text-blue-600 hover:underline">
+        <Link href={`/${locale}/live/vs-sp500`} className="text-blue-600 hover:underline">
           Δες τη σύγκριση →
         </Link>
       </div>

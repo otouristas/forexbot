@@ -1,6 +1,21 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
+import { LocalePageProps } from '@/models/locale-page-props'
+import { buildPageMetadata } from '@/lib/seo'
+import { resolveLocale } from '@/lib/locale'
 
-export default function CompareLiveVsBacktestPage({ params }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
+  const locale = await resolveLocale(params)
+  return buildPageMetadata({
+    locale,
+    title: 'ForexBot.gr | Live vs Backtest Convergence',
+    description: 'Ελέγξτε πώς τα live δεδομένα ForexBot συμφωνούν με τα backtests μέσω γραφημάτων και σημείων ελέγχου.',
+    path: 'live/compare-live-vs-backtest',
+  })
+}
+
+export default async function CompareLiveVsBacktestPage({ params }: LocalePageProps) {
+  const locale = await resolveLocale(params)
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">LIVE vs BACKTEST – Έλεγχος Σύγκλισης</h1>
@@ -30,7 +45,7 @@ export default function CompareLiveVsBacktestPage({ params }: { params: { locale
       </div>
 
       <div className="mb-8">
-        <Link href={`/${params.locale}/strategy`} className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition">
+        <Link href={`/${locale}/strategy`} className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition">
           Δες τη λογική της στρατηγικής
         </Link>
       </div>

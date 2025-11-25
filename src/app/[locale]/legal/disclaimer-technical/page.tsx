@@ -1,4 +1,20 @@
-export default function DisclaimerTechnicalPage({ params }: { params: { locale: string } }) {
+import type { Metadata } from 'next'
+import { LocalePageProps } from '@/models/locale-page-props'
+import { buildPageMetadata } from '@/lib/seo'
+import { resolveLocale } from '@/lib/locale'
+
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
+  const locale = await resolveLocale(params)
+  return buildPageMetadata({
+    locale,
+    title: 'ForexBot.gr | Technical Disclaimer',
+    description: 'Τεχνικά όρια backtesting, live διαφοροποιήσεις και τεχνολογικοί κίνδυνοι της στρατηγικής.',
+    path: 'legal/disclaimer-technical',
+  })
+}
+
+export default async function DisclaimerTechnicalPage({ params }: LocalePageProps) {
+  await resolveLocale(params)
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <h1 className="text-3xl font-bold mb-8">Τεχνική Πολιτική Disclaimer</h1>

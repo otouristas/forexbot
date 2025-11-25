@@ -1,4 +1,20 @@
-export default function StoryPage({ params }: { params: { locale: string } }) {
+import type { Metadata } from 'next'
+import { LocalePageProps } from '@/models/locale-page-props'
+import { buildPageMetadata } from '@/lib/seo'
+import { resolveLocale } from '@/lib/locale'
+
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
+  const locale = await resolveLocale(params)
+  return buildPageMetadata({
+    locale,
+    title: 'ForexBot.gr | Story & Timeline',
+    description: 'Ανακαλύψτε τα βασικά ορόσημα του ForexBot από το 2013 μέχρι σήμερα με έμφαση στη διαφάνεια.',
+    path: 'story',
+  })
+}
+
+export default async function StoryPage({ params }: LocalePageProps) {
+  await resolveLocale(params)
   const timeline = [
     {
       year: 2013,
