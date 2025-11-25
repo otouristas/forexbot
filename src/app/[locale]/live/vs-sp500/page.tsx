@@ -66,7 +66,7 @@ export default async function VsSP500Page({ params }: LocalePageProps) {
                 <h2 className="text-3xl font-bold text-blue-800">Ενδεικτική Σύγκριση</h2>
               </div>
               <p className="text-lg text-gray-700 leading-relaxed">
-                Η σύγκριση μεταξύ ForexBot και S&P 500 είναι ενδεικτική και δεν υποδηλώνει ποιος είναι &ldquo;καλύτερος&rdquo;.
+                Η σύγκριση μεταξύ ForexBot και S&P 500 είναι ενδεικτική και δεν υποδηλώνει ποιος είναι <q>καλύτερος</q>.
                 Τα δύο είναι διαφορετικά επενδυτικά μέσα με διαφορετικά προφίλ ρίσκου και απόδοσης.
                 Κάθε ένα εξυπηρετεί διαφορετικές επενδυτικές ανάγκες και στόχους.
               </p>

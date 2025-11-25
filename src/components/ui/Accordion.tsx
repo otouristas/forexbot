@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 interface AccordionItem {
   title: string
-  content: string
+  content: React.ReactNode
   emoji?: string
 }
 

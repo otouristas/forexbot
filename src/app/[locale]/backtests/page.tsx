@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   return buildPageMetadata({
     locale,
     title: `ForexBot.gr | ${t.nav.backtests} 2008-2023`,
-    description: t.backtestVideo.disclaimer,
+    description: t.home.backtestVideo.disclaimer,
     path: 'backtests',
   })
 }

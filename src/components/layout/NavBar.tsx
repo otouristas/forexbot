@@ -36,7 +36,7 @@ export default function NavBar() {
   const t = getTranslations((locale as Locale) || 'el')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isLiveDropdownOpen, setIsLiveDropdownOpen] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const dropdownRef = useRef<HTMLLIElement>(null)
 
   const formatLabel = (value: string): string => {
     if (locale === 'el') {
