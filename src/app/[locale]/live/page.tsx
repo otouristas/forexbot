@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { LocalePageProps } from '@/models/locale-page-props'
 import { buildPageMetadata } from '@/lib/seo'
 import { resolveLocale } from '@/lib/locale'
+import { getTranslations } from '@/lib/translations'
 
 const versions = [
   {
@@ -24,10 +25,11 @@ const versions = [
 
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const locale = await resolveLocale(params)
+  const t = getTranslations(locale)
   return buildPageMetadata({
     locale,
-    title: 'ForexBot.gr | Live Performance Overview',
-    description: 'Παρακολουθήστε τις live εκδόσεις ForexBot και συγκρίνετε αποτελέσματα με backtests και S&P 500.',
+    title: `ForexBot.gr | ${t.nav.live} Performance Overview`,
+    description: 'Monitor live ForexBot versions and compare results with backtests and S&P 500.',
     path: 'live',
   })
 }

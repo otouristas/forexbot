@@ -1,15 +1,18 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import Accordion from '@/components/ui/Accordion'
 import { LocalePageProps } from '@/models/locale-page-props'
 import { buildPageMetadata } from '@/lib/seo'
 import { resolveLocale } from '@/lib/locale'
+import { getTranslations } from '@/lib/translations'
 
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const locale = await resolveLocale(params)
+  const t = getTranslations(locale)
   return buildPageMetadata({
     locale,
-    title: 'ForexBot.gr | Frequently Asked Questions',
-    description: 'Απαντήσεις για τη στρατηγική ForexBot, τα backtests, το ρίσκο και το επιχειρηματικό μοντέλο.',
+    title: `ForexBot.gr | ${t.home.faq.title}`,
+    description: `Answers about the ForexBot strategy, backtests, risk and business model.`,
     path: 'faqs',
   })
 }
@@ -23,11 +26,11 @@ export default async function FAQsPage({ params }: LocalePageProps) {
       content: (
         <div>
           <p className="main-paragraph mb-4">
-            Το ForexBot έχει σχεδιαστεί με βάση ιστορικά δεδομένα και πραγματική απόδοση, αποφεύγοντας στρατηγικές όπως martingale, grids ή μη-προσαρμοσμένους δείκτες. Αντίθετα, βασίζεται σε:
+            Το ForexBot έχει σχεδιαστεί με βάση ιστορικά δεδομένα και πραγματική απόδοση, αποφεύγοντας στρατηγικές όπως martingale, grids ή &ldquo;μη-προσαρμοσμένους δείκτες&rdquo;. Αντίθετα, βασίζεται σε:
           </p>
           <ul className="list-disc list-inside space-y-2 mb-4 text-gray-700">
-            <li>📚 Αναγνώριση μοτίβων μετά από ανακοινώσεις ειδήσεων, όχι σε "μαγικούς" δείκτες</li>
-            <li>🧪 Πολυετείς δοκιμές (2008–2024), συμπεριλαμβανομένων ακραίων γεγονότων όπως η Black Monday</li>
+            <li>📚 Αναγνώριση μοτίβων μετά από ανακοινώσεις ειδήσεων, όχι σε &ldquo;μαγικούς&rdquo; δείκτες</li>
+            <li>🧪 Πολυετείς δοκιμές (2008–2024), συμπεριλαμβανομένων ακραίων γεγονότων όπως η &ldquo;Black Monday&rdquo;</li>
             <li>📡 Επαλήθευση απόδοσης μέσω τρίτων (Darwinex, Myfxbook)</li>
             <li>🧠 Διαφορετικές εκδόσεις με προσαρμοσμένο προφίλ ρίσκου</li>
           </ul>
@@ -245,14 +248,14 @@ export default async function FAQsPage({ params }: LocalePageProps) {
       {/* Contact CTA */}
       <section className="py-16 bg-gradient-to-r from-brand-cyan-600 to-brand-cyan-700 text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Έχετε περισσότερες ερωτήσεις;</h2>
+          <h2 className="text-3xl font-bold mb-4">Έχετε περισσότερες ερωτήσεις&hellip;</h2>
           <p className="text-xl mb-8 opacity-95">Επικοινωνήστε μαζί μας για περισσότερες λεπτομέρειες</p>
-          <a
+          <Link
             href="/el/contact"
             className="bg-white text-brand-cyan-700 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl inline-block"
           >
             Επικοινωνία
-          </a>
+          </Link>
         </div>
       </section>
     </div>

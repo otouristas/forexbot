@@ -136,6 +136,9 @@ export default function NavBar() {
               })}
             </ul>
           </nav>
+          <div className="hidden lg:block">
+            <LocaleSwitcher />
+          </div>
           <button
             type="button"
             className="lg:hidden flex flex-col justify-center items-center w-12 h-12 rounded-lg border border-white/40 bg-white/10 hover:bg-white/20 transition-colors"

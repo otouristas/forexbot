@@ -2,13 +2,15 @@ import type { Metadata } from 'next'
 import { LocalePageProps } from '@/models/locale-page-props'
 import { buildPageMetadata } from '@/lib/seo'
 import { resolveLocale } from '@/lib/locale'
+import { getTranslations } from '@/lib/translations'
 
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const locale = await resolveLocale(params)
+  const t = getTranslations(locale)
   return buildPageMetadata({
     locale,
-    title: 'ForexBot.gr | Backtests 2008-2023',
-    description: 'Δείτε τα ιστορικά αποτελέσματα ForexBot v13 με αναλυτικά CAGR, Max Drawdown και δείκτες 2008–2023.',
+    title: `ForexBot.gr | ${t.nav.backtests} 2008-2023`,
+    description: t.backtestVideo.disclaimer,
     path: 'backtests',
   })
 }

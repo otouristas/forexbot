@@ -3,13 +3,15 @@ import ContactContent from '@/components/sections/ContactContent'
 import { buildPageMetadata } from '@/lib/seo'
 import { LocalePageProps } from '@/models/locale-page-props'
 import { resolveLocale } from '@/lib/locale'
+import { getTranslations } from '@/lib/translations'
 
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const locale = await resolveLocale(params)
+  const t = getTranslations(locale)
   return buildPageMetadata({
     locale,
-    title: 'ForexBot.gr | About & Contact',
-    description: 'Συστηθείτε στην ομάδα του ForexBot.gr και επικοινωνήστε για τεχνικές ή εκπαιδευτικές ερωτήσεις.',
+    title: `ForexBot.gr | ${t.contact.title}`,
+    description: t.contact.description,
     path: 'contact',
   })
 }
