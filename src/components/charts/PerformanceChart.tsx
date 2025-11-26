@@ -71,3 +71,4 @@ export default function PerformanceChart({ data, height = 300, showBalance = fal
   )
 }
 
+
